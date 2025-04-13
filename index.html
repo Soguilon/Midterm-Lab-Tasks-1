@@ -10,7 +10,7 @@
     body {
       margin: 0;
       font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(120deg, #000 30%, #020f1f 70%);
+      background: linear-gradient(120deg, #1f1f1f 30%, #000 70%);
       color: #00bfff;
       overflow-x: hidden;
       animation: bgShift 15s ease-in-out infinite alternate;
@@ -26,40 +26,40 @@
       background: rgba(0, 0, 0, 0.8);
       padding: 20px;
       text-align: center;
-      font-size: 2rem;
+      font-size: 2.5rem;
       color: #00bfff;
-      text-shadow: 0 0 10px #00bfff, 0 0 20px #00bfff;
+      text-shadow: 0 0 15px #00bfff, 0 0 25px #00bfff;
       animation: neonGlow 2s infinite alternate;
-      box-shadow: 0 0 15px #00bfff;
+      box-shadow: 0 0 20px #00bfff;
     }
 
     section {
       padding: 30px 20px;
       max-width: 900px;
       margin: auto;
-      border-radius: 10px;
-      background: rgba(0, 0, 0, 0.6);
+      border-radius: 15px;
+      background: rgba(0, 0, 0, 0.7);
       transition: transform 0.3s ease-in-out;
       animation: fadeInUp 1.5s ease-in-out;
     }
 
     section:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 20px #00bfff;
+      box-shadow: 0 0 25px #00bfff;
     }
 
     h2 {
       color: #00bfff;
       text-shadow: 0 0 5px #00bfff;
       border-bottom: 2px solid #00bfff;
-      padding-bottom: 5px;
+      padding-bottom: 10px;
       animation: glowPulse 2s infinite alternate;
     }
 
     .screenshot img {
       max-width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #00bfff;
+      border-radius: 15px;
+      box-shadow: 0 0 15px #00bfff;
       animation: floatImage 4s ease-in-out infinite;
     }
 
@@ -70,36 +70,36 @@
 
     @keyframes floatImage {
       0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      50% { transform: translateY(-15px); }
       100% { transform: translateY(0); }
     }
 
     @keyframes neonGlow {
-      from { box-shadow: 0 0 10px #00bfff; }
-      to { box-shadow: 0 0 25px #00bfff, 0 0 50px #00bfff; }
+      from { box-shadow: 0 0 15px #00bfff; }
+      to { box-shadow: 0 0 30px #00bfff, 0 0 60px #00bfff; }
     }
 
     @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(20px); }
+      0% { opacity: 0; transform: translateY(30px); }
       100% { opacity: 1; transform: translateY(0); }
     }
 
     .download-link {
       display: inline-block;
       margin-top: 20px;
-      padding: 10px 20px;
+      padding: 12px 25px;
       background-color: #00bfff;
       color: #000;
       text-decoration: none;
-      border-radius: 5px;
-      box-shadow: 0 0 10px #00bfff;
+      border-radius: 8px;
+      box-shadow: 0 0 15px #00bfff;
       transition: background 0.3s ease, transform 0.2s ease;
     }
 
     .download-link:hover {
       background-color: #0099cc;
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #00bfff;
+      transform: scale(1.1);
+      box-shadow: 0 0 25px #00bfff;
     }
   </style>
 </head>
@@ -108,7 +108,7 @@
 
   <section>
     <p>This portfolio demonstrates the process of data normalization and cleaning applied to a transactional database. The dataset consists of multiple related tables, each designed to improve data organization and eliminate redundancy.</p>
-        <a href="https://github.com/Soguilon/Midterm-Lab-Tasks-1" target="_blank">Go to the Midterm Lab Task 1 Github</a>
+    <a href="https://github.com/Soguilon/Midterm-Lab-Tasks-1" target="_blank">Go to the Midterm Lab Task 1 Github</a>
     <p>Download the Excel file: 
       <a class="download-link" href="https://github.com/user-attachments/files/19071685/Midterm.Lab.Task.1.xlsx" download>Download Excel File</a>
     </p>
