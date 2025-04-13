@@ -1,153 +1,246 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Midterm Lab Task 1 - Data Normalization and Cleaning</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Midterm Lab Task 1 - Data Normalization & Cleaning</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
-    body {
-      margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(120deg, #1f1f1f 30%, #000 70%);
-      color: #00bfff;
-      overflow-x: hidden;
-      animation: bgShift 15s ease-in-out infinite alternate;
-      transition: background 2s ease-in-out;
+    :root {
+      --neon: #00ffff;
+      --bg: #000;
+      --light-bg: #111;
+      --text: #fff;
     }
 
-    @keyframes bgShift {
-      0% { background-position: left top; }
-      100% { background-position: right bottom; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      cursor: none;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: radial-gradient(circle, var(--bg), #000);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    .cursor {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--neon);
+      border-radius: 50%;
+      position: absolute;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 0 15px var(--neon), 0 0 25px var(--neon);
     }
 
     header {
-      background: rgba(0, 0, 0, 0.8);
-      padding: 20px;
+      padding: 40px;
       text-align: center;
-      font-size: 2.5rem;
-      color: #00bfff;
-      text-shadow: 0 0 15px #00bfff, 0 0 25px #00bfff;
-      animation: neonGlow 2s infinite alternate;
-      box-shadow: 0 0 20px #00bfff;
+      font-size: 3rem;
+      color: var(--neon);
+      text-shadow: 0 0 25px var(--neon);
+      box-shadow: 0 2px 25px var(--neon);
+      background-color: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: var(--bg);
+      border-top: 2px solid var(--neon);
+      border-bottom: 2px solid var(--neon);
+      box-shadow: 0 0 25px var(--neon);
+    }
+
+    nav a {
+      color: var(--text);
+      padding: 30px 50px;
+      text-decoration: none;
+      text-shadow: 0 0 10px var(--neon);
+      font-weight: bold;
+      font-size: 1.5rem;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--neon);
+      background-color: var(--light-bg);
+      box-shadow: inset 0 0 15px var(--neon);
     }
 
     section {
-      padding: 30px 20px;
-      max-width: 900px;
+      padding: 80px 50px;
+      max-width: 1300px;
       margin: auto;
+      background-color: rgba(0, 0, 0, 0.8);
+      margin-bottom: 50px;
+      border-left: 6px solid var(--neon);
       border-radius: 15px;
-      background: rgba(0, 0, 0, 0.7);
-      transition: transform 0.3s ease-in-out;
-      animation: fadeInUp 1.5s ease-in-out;
-    }
-
-    section:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px #00bfff;
+      box-shadow: 0 0 30px var(--neon);
+      position: relative;
     }
 
     h2 {
-      color: #00bfff;
-      text-shadow: 0 0 5px #00bfff;
-      border-bottom: 2px solid #00bfff;
-      padding-bottom: 10px;
-      animation: glowPulse 2s infinite alternate;
+      color: var(--neon);
+      text-shadow: 0 0 25px var(--neon);
+      border-bottom: 3px solid var(--neon);
+      padding-bottom: 15px;
+      font-size: 2.5rem;
     }
 
-    .screenshot img {
-      max-width: 100%;
-      border-radius: 15px;
-      box-shadow: 0 0 15px #00bfff;
-      animation: floatImage 4s ease-in-out infinite;
+    img {
+      width: 600px;
+      height: 350px;
+      border-radius: 20px;
+      border: 3px solid var(--neon);
+      box-shadow: 0 0 30px var(--neon);
+      animation: float 3s ease-in-out infinite;
+      display: block;
+      margin: 30px auto;
+      transition: transform 0.3s ease;
     }
 
-    @keyframes glowPulse {
-      0% { text-shadow: 0 0 5px #00bfff, 0 0 10px #00bfff; }
-      100% { text-shadow: 0 0 20px #00bfff, 0 0 30px #00bfff; }
+    img:hover {
+      transform: scale(1.15) rotateY(25deg);
     }
 
-    @keyframes floatImage {
-      0% { transform: translateY(0); }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-15px); }
-      100% { transform: translateY(0); }
     }
 
-    @keyframes neonGlow {
-      from { box-shadow: 0 0 15px #00bfff; }
-      to { box-shadow: 0 0 30px #00bfff, 0 0 60px #00bfff; }
+    .typewriter {
+      overflow: hidden;
+      border-right: .2em solid var(--neon);
+      white-space: nowrap;
+      margin: 30px auto;
+      width: 100%;
+      color: var(--neon);
+      text-shadow: 0 0 20px var(--neon);
+      font-size: 2rem;
+      max-width: 800px;
+      animation: typing 4s steps(50, end), blink-caret .75s step-end infinite;
     }
 
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
     }
 
-    .download-link {
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: var(--neon); }
+    }
+
+    .glitch {
+      color: var(--neon);
+      position: relative;
+    }
+
+    .glitch::before, .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .glitch::before {
+      animation: glitchTop 1s infinite linear alternate-reverse;
+      color: #0ff;
+    }
+
+    .glitch::after {
+      animation: glitchBottom 1s infinite linear alternate-reverse;
+      color: #fff;
+    }
+
+    @keyframes glitchTop {
+      0% { clip-path: inset(0 0 80% 0); transform: translate(-3px, -3px); }
+      100% { clip-path: inset(20% 0 60% 0); transform: translate(3px, 3px); }
+    }
+
+    @keyframes glitchBottom {
+      0% { clip-path: inset(60% 0 0 0); transform: translate(3px, 2px); }
+      100% { clip-path: inset(30% 0 40% 0); transform: translate(-2px, -2px); }
+    }
+
+    .download-btn {
       display: inline-block;
-      margin-top: 20px;
-      padding: 12px 25px;
-      background-color: #00bfff;
-      color: #000;
+      margin-top: 30px;
+      padding: 15px 30px;
+      background-color: var(--neon);
+      color: var(--bg);
+      font-size: 1.5rem;
       text-decoration: none;
-      border-radius: 8px;
-      box-shadow: 0 0 15px #00bfff;
-      transition: background 0.3s ease, transform 0.2s ease;
+      border-radius: 10px;
+      box-shadow: 0 0 25px var(--neon);
+      transition: background-color 0.3s;
     }
 
-    .download-link:hover {
-      background-color: #0099cc;
-      transform: scale(1.1);
-      box-shadow: 0 0 25px #00bfff;
+    .download-btn:hover {
+      background-color: var(--light-bg);
+      color: var(--neon);
     }
   </style>
 </head>
 <body>
-  <header>Midterm Lab Task 1 - Data Normalization and Cleaning</header>
 
-  <section>
-    <p>This portfolio demonstrates the process of data normalization and cleaning applied to a transactional database. The dataset consists of multiple related tables, each designed to improve data organization and eliminate redundancy.</p>
-    <a href="https://github.com/Soguilon/Midterm-Lab-Tasks-1" target="_blank">Go to the Midterm Lab Task 1 Github</a>
-    <p>Download the Excel file: 
-      <a class="download-link" href="https://github.com/user-attachments/files/19071685/Midterm.Lab.Task.1.xlsx" download>Download Excel File</a>
-    </p>
-  </section>
+<div class="cursor" id="cursor"></div>
+<header class="glitch" data-text="Midterm Lab Task 1">Midterm Lab Task 1 - Data Normalization & Cleaning</header>
 
-  <section>
-    <h2>Step by Step Process</h2>
-    <p><strong>Step 1:</strong></p>
-    <ul>
-      <li>Load the raw file</li>
-      <li>Fix columns width and height</li>
-      <li>TRIM words and spaces</li>
-      <li>Remove Null values</li>
-      <li>Remove Duplicates</li>
-    </ul>
+<section id="content">
+  <div class="typewriter">Portfolio Demonstrating the Process of Data Normalization & Cleaning</div>
+  <p>This portfolio demonstrates the process of data normalization and cleaning applied to a transactional database. The dataset consists of multiple related tables, each designed to improve data organization and eliminate redundancy.</p>
 
-    <p><strong>Step 2:</strong></p>
-    <ul>
-      <li>Performed 1NF</li>
-      <li>Performed Table split using 2NF</li>
-      <li>Performed 2NF</li>
-      <li>Mapped the normalization as a physical data model</li>
-    </ul>
+  <h2>Step by Step Process</h2>
+  <h3>Step 1:</h3>
+  <ul>
+    <li>Load the raw file</li>
+    <li>Fix columns width and height</li>
+    <li>TRIM words and spaces</li>
+    <li>Remove Null values</li>
+    <li>Remove Duplicates</li>
+  </ul>
 
-    <p><strong>Step 3:</strong> Here's the screenshot of my output before I started data cleaning:</p>
-    <div class="screenshot">
-      <img src="https://github.com/user-attachments/assets/e0375d56-cc93-4908-9492-90f4aa3642d7" alt="Raw Data Screenshot">
-    </div>
+  <h3>Step 2:</h3>
+  <ul>
+    <li>Performed 1NF</li>
+    <li>Performed Table split using 2NF</li>
+    <li>Performed 2NF</li>
+    <li>Mapped the normalization as a physical data model</li>
+  </ul>
 
-    <p><strong>Step 4:</strong> Here's the screenshot of my output after I started data cleaning:</p>
-    <div class="screenshot">
-      <img src="https://github.com/user-attachments/assets/9daf38c7-759e-48ee-8403-af19cdfa2af1" alt="Cleaned Data Screenshot">
-    </div>
+  <h3>Step 3: Output Before Data Cleaning</h3>
+  <img src="https://github.com/user-attachments/assets/e0375d56-cc93-4908-9492-90f4aa3642d7" alt="raw">
 
-    <h2>Physical Data Model</h2>
-    <div class="screenshot">
-      <img src="https://github.com/user-attachments/assets/105f7e3d-6e12-4af5-b09f-66e0428a5105" alt="Physical Data Model">
-    </div>
-  </section>
+  <h3>Step 4: Output After Data Cleaning</h3>
+  <img src="https://github.com/user-attachments/assets/9daf38c7-759e-48ee-8403-af19cdfa2af1" alt="cleaned">
 
+  <h2>Physical Data Model</h2>
+  <img src="https://github.com/user-attachments/assets/105f7e3d-6e12-4af5-b09f-66e0428a5105" alt="data model">
+
+  <!-- Download Button -->
+  <a href="https://github.com/user-attachments/files/19071685/Midterm.Lab.Task.1.xlsx" class="download-btn" download>Download Midterm Lab Task 1</a>
+</section>
+
+<script>
+  const cursor = document.getElementById('cursor');
+
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.pageX - 10 + 'px';
+    cursor.style.top = e.pageY - 10 + 'px';
+  });
+</script>
 </body>
 </html>
